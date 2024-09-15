@@ -1,0 +1,33 @@
+# Full Name: Roaa Hazem Hamoudah.
+# Registration ID: 1210738
+
+# This script checks the user and system CPU, calculates the percentage of CPU used, and if the usage is above 80%, it sends an email.
+
+#!/bin/bash
+userCPU=$(top -n1 | grep "Cpu(s)" | tr -s ' ' | cut -d ' ' -f2 | cut -d'.' -f1) 
+systemCPU=$(top -n1 | grep "Cpu(s)" | tr -s ' ' | cut -d ' ' -f4 | cut -d'.' -f1)
+
+# -n1: This option specifies the number of iterations or updates that top should perform before exiting.
+
+echo "User CPU usage: $userCPU"
+echo "System CPU usage: $systemCPU"
+CPU_Per=$(( $userCPU + $systemCPU ))
+
+echo "The CPU percentage: $CPU_Per%"
+
+
+THRESHOLDVal=80
+
+ # compare CPU usage to the threshold.
+if [ $CPU_Per -gt $THRESHOLDVal ]; then
+echo "Warning: CPU usage is above the threshold of $THRESHOLDVal%"
+
+echo "CPU usage is above the threshold of $THRESHOLDVal" | mail -s "CPU Usage" $(whoami)                   # -s : sets the email's subject to " CPU Usage."
+exit 1
+
+else
+echo "CPU usage is below the threshold of $THRESHOLDVal% (within the acceptable range)"
+exit 0
+
+fi
+

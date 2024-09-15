@@ -1,0 +1,26 @@
+# Full Name: Roaa Hazem Hamoudah.
+# Registration ID: 1210738
+
+# This script checks the disk usage, and if the usage is above 80%, it sends an email.
+
+#!/bin/bash
+
+disk_usage=$(df | grep /dev/sda2 | tr -s ' ' | cut -d ' ' -f5 | tr -d '%')          # df: displays information about disk space usage for all filesystems.
+                                                                                    # tr -s ' ' : will reduce all consecutive spaces to one space. 
+
+echo "Current disk usage: $disk_usage%" 
+
+THRESHOLDVal=80
+
+# compare disk usage to the threshold.
+if  [ $disk_usage -gt  $THRESHOLDVal ] ; then
+echo "Warning: disk usage is above the threshold of $THRESHOLDVal%"
+echo "Warning: disk usage is above the threshold of $THRESHOLDVal%" | mail -s "Disk Usage" $(whoami)             # -s : sets the email's subject to "Disk Usage."
+
+exit 1
+
+else
+echo "disk usage is below the threshold of $THRESHOLDVal% (within the acceptable range)"
+exit 0
+
+fi

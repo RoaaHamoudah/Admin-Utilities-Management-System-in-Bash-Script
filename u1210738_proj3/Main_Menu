@@ -1,0 +1,40 @@
+# Full Name: Roaa Hazem Hamoudah.
+# Registration ID: 1210738
+
+# The script creates a menu with three options: login as admin, view system info, or exit. It repeats this menu until you choose to exit.
+
+
+
+#!/bin/bash
+while true; do
+echo 
+echo "------------------------"
+echo "Main Menu:"
+echo "1. Login as admain"
+echo "2. View system information"
+echo "3. Exit"
+
+echo
+read -p "Please select an option [1-3]: " option                    # the -p option in the read command is used to display a prompt message before reading the user's input.
+#echo "Please select an option [1-3]:"
+#read option
+ 
+case $option in
+1) echo "Login as admain:"
+./login_as_admin
+;;
+
+2) echo "View system information:"
+./View_System_Information
+;;
+
+3) echo "Exit"
+
+exit 0
+;;
+
+*) echo "Invalid option. please try again."                        # If an invalid option is selected, the script informs the user and redisplays the menu.
+;;
+
+esac
+done

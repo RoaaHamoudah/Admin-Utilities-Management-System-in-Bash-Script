@@ -1,0 +1,29 @@
+# Full Name: Roaa Hazem Hamoudah.
+# Registration ID: 1210738
+
+# This script checks the total and used memory, calculates the percentage of memory used, and if the usage is above 80%, it sends an email.
+
+#!/bin/bash
+
+THRESHOLDVal=10            # set the threshold value to 80
+
+
+totalMem=$(free | grep Mem | tr -s ' ' | cut -d ' ' -f2)               # get the total memory value using the 'free' command
+usedMem=$(free | grep Mem | tr -s ' ' | cut -d ' ' -f3)                # get the used memory value using the 'free' command
+
+# calculate the memory usage percentage
+memUsedPer=$(( (usedMem *100) / totalMem ))                                                                      
+echo "The memory usage percentage: $memUsedPer%"
+
+
+# compare memory usage to the threshold.
+if [ $memUsedPer -gt $THRESHOLDVal  ] ; then
+echo "Warning: Memory usage is above the threshold of $THRESHOLDVal%"
+echo "Memory usage is above the threshold of $THRESHOLDVal%" | mail -s "Memory Usage" $(whoami)                  # -s : sets the email's subject to "Memory Usage."
+exit 1
+
+else 
+echo "Memory usage is below the threshold of $THRESHOLDVal% (within the acceptable range)"
+exit 0
+
+fi

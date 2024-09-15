@@ -1,0 +1,14 @@
+# Full Name: Roaa Hazem Hamoudah.
+# Registration ID: 1210738
+
+# This code lists the users currently logged in to my computer along with their full names and what they're doing.
+# It displays the information in the following format: Logged-in user (current task).
+
+
+#!/bin/bash
+
+echo
+echo "The format is: logged-in user (current task)"
+whosThere=$(who | tr -s ' ' | cut -d ' ' -f1,5,6 )
+echo $whosThere
+

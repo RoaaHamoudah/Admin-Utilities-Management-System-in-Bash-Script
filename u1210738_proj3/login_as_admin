@@ -1,0 +1,68 @@
+# Full Name: Roaa Hazem Hamoudah.
+# Registration ID: 1210738
+ 
+
+# This script lets you access an admin menu if you enter the correct password.
+# The menu has options to check memory, CPU, disk usage, and see who's logged in.
+
+
+#!/bin/bash
+
+adminOption=0
+Admin_Pass="u1210738"                                       # Hard-coded admin passcode
+echo -n "Enter passcode: "                                  # -n: keeps the cursor on the same line, allowing the user to type the input immediately after the prompt.
+read -s passcode                                            # -s: means without displaying what the user writes (i.e. hiding it)
+echo
+
+if [ "$passcode" == "$Admin_Pass" ]; then                   # check if the entered passcode matches the hard-coded admin passcode
+echo "Access granted. You're now authorized to continue."
+
+
+#while true; do
+while [ "$adminOption" -ne 5 ]; do
+echo
+echo
+echo "Admin Utilities Menu:"
+
+echo "1. Memory Usage"
+echo "2. CPU Usage"
+echo "3. Disk Usage"
+echo "4. Who's There"
+
+echo "5. Back to Main Menu"
+echo 
+read -p "Please select an option [1-5]: " adminOption       # the -p option in the read command is used to display a prompt message before reading the user's input.
+
+case $adminOption in
+1) echo "Memory Usage:"
+./Memory_Usage
+;;
+
+2) echo "CPU Usage:"
+./CPU_Usage
+;;
+
+3) echo "Disk Usage:"
+./Disk_Usage
+;;
+
+4) echo "Who's There:"
+./Who_There
+;;
+
+5) echo "Back to Main Menu..."
+exit 0 
+;;
+
+*) echo "Invalid option. Please try again."   
+;;
+
+esac
+echo
+done
+
+else                                                       # If the passcode doesn't match, deny access to the Admin Utilities menu
+echo "Access denied. Incorrect passcode."
+fi 
+
+
